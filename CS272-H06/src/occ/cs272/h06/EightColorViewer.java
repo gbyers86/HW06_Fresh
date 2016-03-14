@@ -27,23 +27,56 @@ package occ.cs272.h06;
  *  Please fill in the STUDENT and ASSIGNEMENT FIELDS.
  */
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.*;
 
 public class EightColorViewer extends JPanel
 {
     // TODO: You must fill these in correctly to get credit
-    public static final String STUDENT = "Put your login ID here";
+    public static final String STUDENT = "gbyers";
     public static final String ASSIGNMENT = "H06-B";
 
     // TODO: Place your instance variables here
-
+private JCheckBox r;
+private JCheckBox g;
+private JCheckBox b;
+private JPanel panelA;
     
     /**
      * You'll put your GUI starter code in the constructor
      */
     public EightColorViewer()
     {
-        // TODO: PLACE YOUR CODE HERE
+   	this.setLayout(new BorderLayout());	
+    	
+    	 panelA = new JPanel();
+    	JPanel panelB = new JPanel();
+    
+    	r = new JCheckBox("Red");
+    	r.setName("RED");
+    	g = new JCheckBox("Green");
+    	g.setName("GREEN");
+    	b = new JCheckBox("Blue");
+    	b.setName("BLUE");
+    
+    	BoxItemListener bh = new BoxItemListener();
+    	r.addItemListener(bh);
+    	g.addItemListener(bh);
+    	b.addItemListener(bh);
+    	
+    	panelB.add(r);
+    	panelB.add(g);
+    	panelB.add(b);
+     	this.add(panelB, BorderLayout.SOUTH);
+    
+     	panelA.setName("PANEL");
+    //	panelA.setBackground(Color.RED);
+    	this.add(panelA);
+    	
+    
+     	// TODO: PLACE YOUR CODE HERE
         
         
 
@@ -57,6 +90,33 @@ public class EightColorViewer extends JPanel
         mainFrame.getContentPane().add(this);
         mainFrame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         mainFrame.setVisible(true);
+    }
+    
+    private class BoxItemListener implements ItemListener
+    {
+  
+		public void itemStateChanged(ItemEvent e) {
+
+    	if (r.isSelected() && (g.isSelected() && b.isSelected()))
+    		panelA.setBackground(Color.WHITE);
+    	else if (!b.isSelected() && (r.isSelected() && g.isSelected()))
+    		panelA.setBackground(Color.YELLOW);
+    	else if (r.isSelected() &&(!g.isSelected() && b.isSelected()))
+    		panelA.setBackground(Color.MAGENTA);
+    		else if (r.isSelected() && (!g.isSelected() && !b.isSelected()))
+    			panelA.setBackground(Color.RED);
+    	else if (!r.isSelected() && (g.isSelected() && b.isSelected()))
+    		panelA.setBackground(Color.CYAN);
+    	else if (!r.isSelected() && (!g.isSelected() && b.isSelected()))
+    			panelA.setBackground(Color.BLUE);
+    	else if (!r.isSelected() && (g.isSelected() && !b.isSelected()))
+    		panelA.setBackground(Color.GREEN);
+    	else if (!r.isSelected() && (!g.isSelected() && !b.isSelected()))
+    	panelA.setBackground(Color.BLACK);
+
+		}
+
+    	
     }
 
     //////// YOU MAY ADD OTHER METHODS HERE /////////////////////////
